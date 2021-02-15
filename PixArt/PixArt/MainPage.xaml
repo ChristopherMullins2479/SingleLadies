@@ -2,11 +2,54 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PixArt.MainPage">
-    
-    <StackLayout HorizontalOptions="Start">
-        <Grid x:Name="Canvas" Padding="1" BackgroundColor="Black"/>
+    <StackLayout>
+        <Label Text="PixArt" FontSize="Large" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HeightRequest="150" WidthRequest="300" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+        <StackLayout Orientation="Vertical" HorizontalOptions="Center">
+            <!--Sliders-->
+            <StackLayout Orientation="Horizontal">
+                <!--Red Slider-->
+                <Slider x:Name="Red_Slider" Minimum="0" Maximum="255" Background="Red" ValueChanged="Slider_ValueChanged" WidthRequest="150" />
+                <Entry BindingContext="{x:Reference Name =Red_Slider}"
+                       x:Name="RedValue"
+                       Text="{Binding Path=Value}"
+                       TextColor="Red"
+                       FontSize="10"/>
+                <!--Green Slider-->
+                <StackLayout Orientation="Horizontal">
+                    <Slider x:Name="Green_Slider" Minimum="0" Maximum="255" Background="Green" ValueChanged="Slider_ValueChanged" WidthRequest="150" />
+                    <Entry BindingContext="{x:Reference Name =Green_Slider}" 
+                       x:Name="GreenValue"
+                       Text="{Binding Path=Value}"
+                       TextColor="Green"
+                       FontSize="10"/>
+                </StackLayout>
+                <!--Blue Slider-->
+                <StackLayout Orientation="Horizontal">
+                    <Slider x:Name="Blue_Slider" Minimum="0" Maximum="255"  Background="Blue" ValueChanged="Slider_ValueChanged" WidthRequest="150" />
+                    <Entry BindingContext="{x:Reference Name =Blue_Slider}" 
+                       x:Name ="BlueValue"
+                       Text="{Binding Path=Value}"
+                       TextColor="Blue"
+                       FontSize="10"/>
+                </StackLayout>
+            </StackLayout>
+      
+        </StackLayout>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+            <Label Text="Colour" FontSize="Small" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HeightRequest="50" WidthRequest="100" VerticalOptions="Center"></Label>
+            <BoxView x:Name="SampleColour" HeightRequest="50" WidthRequest="50" VerticalOptions="Center" BackgroundColor="Black"></BoxView>
+        </StackLayout>
+        <Grid x:Name="PixelArtBoard" 
+              BackgroundColor="Black" 
+              Padding="5" 
+              HorizontalOptions="Center" 
+              VerticalOptions="Center" 
+              HeightRequest="400" 
+              WidthRequest="400" 
+              ColumnSpacing="1" 
+              RowSpacing="1">
+        </Grid>
 
-        <Button Text="Tester" BackgroundColor="Red" TextColor="Wheat"/>
     </StackLayout>
 
 </ContentPage>

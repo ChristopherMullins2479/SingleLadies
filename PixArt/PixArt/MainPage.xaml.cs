@@ -10,57 +10,109 @@ namespace PixArt
 {
     public partial class MainPage : ContentPage
     {
-        //global variables 
-        int _canvasHeight = 5;
-        int _canvasWeidth = 5;
-        int max_weidth = 300;
-        int max_height = 300;
-        int CanvasPannel_HEIGHT;
-        int CanvasPannel_WIDTH;
+        //global variables
+        int r, g, b;
+        double v1, v2, v3;
+        int i1, i2, i3;
+        const int ROWS = 8;
+        const int COLS = 8;
+        string selectedColour;
+
+
         public MainPage()
         {
             InitializeComponent();
-            GenerateGrid();
+            InitializeBoard();
         }
 
-        //Generate the Grid for the art
-        private void GenerateGrid()
+        //Creates grid to store the canvas
+        private void InitializeBoard()
         {
-            int CanvasPannel_HEIGHT = 50;
-            int CanvasPannel_WIDTH = 50;
+            int iR, iC;
+            double squareSize;
+            BoxView bv;
+            TapGestureRecognizer PixelTapGR;
 
-            //Grid Canvas = new Grid();
-            Canvas.HeightRequest = _canvasHeight * CanvasPannel_HEIGHT;
-            Canvas.WidthRequest = _canvasHeight * CanvasPannel_WIDTH;
-            BoxView CanvasPannel;
-            int r, c;
-            int x, y;
+            PixelTapGR = new TapGestureRecognizer();
+            PixelTapGR.Tapped += PixelTapGR_Tapped;
 
-            for(r = 0; r < _canvasHeight; r++)
+            //loops to create rows and colums for thr grid
+            for (iR = 0; iR < ROWS; iR++)
             {
-                Canvas.RowDefinitions.Add(new RowDefinition());
+                PixelArtBoard.RowDefinitions.Add(new RowDefinition());
             }
-            for (c = 0; c < _canvasWeidth; c++)
+            for (iC = 0; iC < COLS; iC++)
             {
-                Canvas.ColumnDefinitions.Add(new ColumnDefinition());
+                PixelArtBoard.ColumnDefinitions.Add(new ColumnDefinition());
             }
 
-            //sets up canvas
-            for (x = 0; x < _canvasHeight; x++)
+            squareSize = PixelArtBoard.HeightRequest / ROWS;
+
+            //This adds boxviews to the gris that the user will interact with to create their art
+            for (iR = 0; iR < ROWS; iR++)
             {
-                for (y = 0; y < _canvasWeidth; y++)
+                for (iC = 0; iC < COLS; iC++)
                 {
-                    CanvasPannel = new BoxView();
-                    CanvasPannel.HeightRequest = CanvasPannel_HEIGHT;
-                    CanvasPannel.WidthRequest = CanvasPannel_WIDTH;
-                    CanvasPannel.BackgroundColor = Color.White;
-                    CanvasPannel.SetValue(Grid.RowProperty, x);
-                    CanvasPannel.SetValue(Grid.ColumnProperty, y);
-                    Canvas.Children.Add(CanvasPannel);
+                    bv = new BoxView();
+                    bv.SetValue(Grid.ColumnProperty, iC);
+                    bv.SetValue(Grid.RowProperty, iR);
+                    //bv.BackgroundColor = Color.FromHex(coloursStored[iR, iC]);
+                    bv.BackgroundColor = Color.FromHex("ffffff");
+                    bv.ClassId = "Square";
+                    bv.HeightRequest = squareSize;
+                    bv.WidthRequest = squareSize;
+                    bv.HorizontalOptions = LayoutOptions.Center;
+                    bv.VerticalOptions = LayoutOptions.Center;
+                    bv.GestureRecognizers.Add(PixelTapGR);
+
+                    PixelArtBoard.Children.Add(bv);
                 }
-                
             }
+        }
+
+        private void SelectColour(object sender, EventArgs E)
+        {
+            //selectedColour = "";
+            //selectedColour += pckFirstChar.SelectedIndex.ToString("X1");
+            //selectedColour += pckSecondChar.SelectedIndex.ToString("X1");
+            //selectedColour += pckThirdChar.SelectedIndex.ToString("X1");
+            //selectedColour += pckFourthChar.SelectedIndex.ToString("X1");
+            //selectedColour += pckFifthChar.SelectedIndex.ToString("X1");
+            //selectedColour += pckSixthChar.SelectedIndex.ToString("X1");
+
+            //if (selectedColour.Length > 6)
+            //{
+            //    return;
+            //}
+            //SampleColour.BackgroundColor = Color.FromHex(selectedColour);
+        }
+
+        //converts the decimal values of the slider to whole numbers
+
+        //rens as the user moves the RGB sliders
+        private void Slider_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+
+            v1 = Double.Parse(RedValue.Text);
+            v2 = Double.Parse(GreenValue.Text);
+            v3 = Double.Parse(BlueValue.Text);
+
+            i1 = (int)Math.Truncate(v1);
+            i2 = (int)Math.Truncate(v2);
+            i3 = (int)Math.Truncate(v3);
+
+            SampleColour.BackgroundColor = Color.FromRgb(i1, i2, i3);
 
         }
+
+        //Runs when the user taps a square on the canvas
+        private void PixelTapGR_Tapped(object sender, EventArgs E)
+        {
+            BoxView pixelToPaint = (BoxView)sender;
+
+            pixelToPaint.BackgroundColor = Color.FromRgb(i1,i2,i3);
+        }
+
     }
 }
+
