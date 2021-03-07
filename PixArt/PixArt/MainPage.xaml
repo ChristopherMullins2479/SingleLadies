@@ -33,11 +33,16 @@
                        FontSize="10"/>
                 </StackLayout>
             </StackLayout>
-      
+
         </StackLayout>
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
             <Label Text="Colour" FontSize="Small" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HeightRequest="50" WidthRequest="100" VerticalOptions="Center"></Label>
             <BoxView x:Name="SampleColour" HeightRequest="50" WidthRequest="50" VerticalOptions="Center" BackgroundColor="Black"></BoxView>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+            <Button Clicked="savePixArt" Text="Save Picture" HeightRequest="50" WidthRequest="200" HorizontalOptions="Center" VerticalOptions="Center"></Button>
+            <Button Clicked="loadPixArt" Text="Load Picture" HeightRequest="50" WidthRequest="200" HorizontalOptions="Center" VerticalOptions="Center"></Button>
         </StackLayout>
         <Grid x:Name="PixelArtBoard" 
               BackgroundColor="Black" 
@@ -45,11 +50,26 @@
               HorizontalOptions="Center" 
               VerticalOptions="Center" 
               HeightRequest="400" 
-              WidthRequest="400" 
+              WidthRequest="400"
               ColumnSpacing="1" 
               RowSpacing="1">
         </Grid>
 
+        <!--This will hold the grid for the normal colour selector-->
+        <StackLayout>
+            <Grid x:Name="ColourSelector"
+                  BackgroundColor="Black"
+                  HorizontalOptions="Center"
+                  VerticalOptions="Center"
+                  HeightRequest="50"
+                  WidthRequest="200"
+                  ColumnSpacing="1" 
+                  RowSpacing="1"
+                  Padding="5"
+                  >
+            </Grid>
+        </StackLayout>
     </StackLayout>
-
+    
+ 
 </ContentPage>
