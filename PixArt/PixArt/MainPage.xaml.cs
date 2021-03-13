@@ -81,8 +81,61 @@ namespace PixArt
         private void SetBackgroundForColourMenue(int ColourNumber,BoxView bv)
         {
             //sets the colours in the basic colour menue
-            #region Colour menue setup
-            if (ColourNumber == 0)
+            #region Colour menu setup
+            switch(ColourNumber)
+            {
+                case 0:
+                    bv.BackgroundColor = Color.FromRgb(0, 0, 0);//value for black
+                    break;
+                case 1:
+                    bv.BackgroundColor = Color.FromRgb(255, 255, 255);//Value for white
+                    break;
+                case 2:
+                    bv.BackgroundColor = Color.FromRgb(255, 0, 0);//value for red
+                    break;
+                case 3:
+                    bv.BackgroundColor = Color.FromRgb(0, 255, 0);//value for green
+                    break;
+                case 4:
+                    bv.BackgroundColor = Color.FromRgb(0, 0, 255);//value for blue
+                    break;
+                case 5:
+                    bv.BackgroundColor = Color.FromRgb(255, 255, 0);//value for yellow
+                    break;
+                case 6:
+                    bv.BackgroundColor = Color.FromRgb(0, 255, 255);//value for cyan
+                    break;
+                case 7:
+                    bv.BackgroundColor = Color.FromRgb(255, 0, 255);//value for magenta
+                    break;
+                case 8:
+                    bv.BackgroundColor = Color.FromRgb(192, 192, 192);//value for silver
+                    break;
+                case 9:
+                    bv.BackgroundColor = Color.FromRgb(128, 128, 128);//value for gray
+                    break;
+                case 10:
+                    bv.BackgroundColor = Color.FromRgb(128, 0, 0);//value for magenta
+                    break;
+                case 11:
+                    bv.BackgroundColor = Color.FromRgb(128, 128, 0);//value for olive
+                    break;
+                case 12:
+                    bv.BackgroundColor = Color.FromRgb(0, 128, 0);//value for green
+                    break;
+                case 13:
+                    bv.BackgroundColor = Color.FromRgb(128, 0, 128);//value for purple
+                    break;
+                case 14:
+                    bv.BackgroundColor = Color.FromRgb(0, 128, 128);//value for teal
+                    break;
+                case 15:
+                    bv.BackgroundColor = Color.FromRgb(0, 0, 128);//value for navey
+                    break;
+            }
+            #endregion
+            #region commentedOutCode
+            /*if (ColourNumber == 0)
             {
                 bv.BackgroundColor = Color.FromRgb(0, 0, 0);//value for black
             }
@@ -145,8 +198,8 @@ namespace PixArt
             else if (ColourNumber == 15)
             {
                 bv.BackgroundColor = Color.FromRgb(0, 0, 128);//value for navey
-            }
-            #endregion 
+            }*/
+            #endregion
         }
 
         //Runs when the user selects a colour from the colour menue
@@ -162,6 +215,108 @@ namespace PixArt
             valueofcolour = fromC + (fromR * 8);
 
             #region Colour Picker
+            switch (valueofcolour)
+            {
+                case 0:
+                    r = 0;
+                    g = 0;
+                    b = 0;
+                    SetcolourFromMenue(r, g, b);
+                    break; // Black
+                case 1:
+                    r = 255;
+                    g = 255;
+                    b = 255;
+                    SetcolourFromMenue(r, g, b);
+                    break; // White
+                case 2:
+                    r = 255;
+                    g = 0;
+                    b = 0;
+                    SetcolourFromMenue(r, g, b);
+                    break; // Red
+                case 3:
+                    r = 0;
+                    g = 255;
+                    b = 0;
+                    SetcolourFromMenue(r, g, b);
+                    break; // Green
+                case 4:
+                    r = 0;
+                    g = 0;
+                    b = 255;
+                    SetcolourFromMenue(r, g, b);
+                    break; // Blue
+                case 5:
+                    r = 255;
+                    g = 255;
+                    b = 0;
+                    SetcolourFromMenue(r, g, b);
+                    break; // Yellow
+                case 6:
+                    r = 0;
+                    g = 255;
+                    b = 255;
+                    SetcolourFromMenue(r, g, b);
+                    break; // Cyan
+                case 7:
+                    r = 255;
+                    g = 0;
+                    b = 255;
+                    SetcolourFromMenue(r, g, b);
+                    break; // Magenta
+                case 8:
+                    r = 192;
+                    g = 192;
+                    b = 192;
+                    SetcolourFromMenue(r, g, b);
+                    break; // Silver
+                case 9:
+                    r = 128;
+                    g = 128;
+                    b = 128;
+                    SetcolourFromMenue(r, g, b);
+                    break; // Grey
+                case 10:
+                    r = 128;
+                    g = 0;
+                    b = 0;
+                    SetcolourFromMenue(r, g, b);
+                    break; // Maroon
+                case 11:
+                    r = 128;
+                    g = 128;
+                    b = 0;
+                    SetcolourFromMenue(r, g, b);
+                    break; // Olive
+                case 12:
+                    r = 0;
+                    g = 128;
+                    b = 0;
+                    SetcolourFromMenue(r, g, b);
+                    break; // Dark-Green
+                case 13:
+                    r = 128;
+                    g = 0;
+                    b = 128;
+                    SetcolourFromMenue(r, g, b);
+                    break; // Purple
+                case 14:
+                    r = 0;
+                    g = 128;
+                    b = 128;
+                    SetcolourFromMenue(r, g, b);
+                    break; // Teal
+                case 15:
+                    r = 0;
+                    g = 0;
+                    b = 128;
+                    SetcolourFromMenue(r, g, b);
+                    break; // Navy
+
+            }
+            #endregion
+            #region IfBranch
             if (valueofcolour == 0)//black
             {
                 r = 0;
@@ -289,6 +444,9 @@ namespace PixArt
             //Blue_Slider.Value = i3;
 
             SampleColour.BackgroundColor = Color.FromRgb(i1, i2, i3);
+            selectedColour = i1.ToString("X2");
+            selectedColour += i2.ToString("X2");
+            selectedColour += i3.ToString("X2");
         }
 
         //Creates grid to store the canvas
@@ -337,6 +495,7 @@ namespace PixArt
             }
         }
 
+        // Note: SelectColour Function was obsoleted by Slider_ValueChanged Function
         private void SelectColour(object sender, EventArgs E)
         {
             //selectedColour = "";
@@ -354,7 +513,7 @@ namespace PixArt
             //SampleColour.BackgroundColor = Color.FromHex(selectedColour);
         }
 
-        //rens as the user moves the RGB sliders
+        //Runs as the user moves the RGB sliders
         private void Slider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
 
