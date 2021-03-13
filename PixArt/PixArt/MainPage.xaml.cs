@@ -316,121 +316,6 @@ namespace PixArt
 
             }
             #endregion
-            #region IfBranch
-            if (valueofcolour == 0)//black
-            {
-                r = 0;
-                g = 0;
-                b = 0;
-                SetcolourFromMenue(r, g, b);  
-            }
-            else if (valueofcolour == 1)//white
-            {
-                r = 255;
-                g = 255;
-                b = 255;
-                SetcolourFromMenue(r, g, b);
-            }
-            else if (valueofcolour == 2)//red
-            {
-                r = 255;
-                g = 0;
-                b = 0;
-                SetcolourFromMenue(r, g, b);
-            }
-            else if (valueofcolour == 3)//green
-            {
-                r = 0;
-                g = 255;
-                b = 0;
-                SetcolourFromMenue(r, g, b);
-            }
-            else if (valueofcolour == 4)//blue
-            {
-                r = 0;
-                g = 0;
-                b = 255;
-                SetcolourFromMenue(r, g, b);
-            }
-            else if (valueofcolour == 5)//yellow
-            {
-                r = 255;
-                g = 255;
-                b = 0;
-                SetcolourFromMenue(r, g, b);
-            }
-            else if (valueofcolour == 6)//cyan
-            {
-                r = 0;
-                g = 255;
-                b = 255;
-                SetcolourFromMenue(r, g, b);
-            }
-            else if (valueofcolour == 7)//magenta
-            {
-                r = 255;
-                g = 0;
-                b = 255;
-                SetcolourFromMenue(r, g, b);
-            }
-            else if (valueofcolour == 8)//silver
-            {
-                r = 192;
-                g = 192;
-                b = 192;
-                SetcolourFromMenue(r, g, b);
-            }
-            else if (valueofcolour == 9)//gray
-            {
-                r = 128;
-                g = 128;
-                b = 128;
-                SetcolourFromMenue(r, g, b);
-            }
-            else if (valueofcolour == 10)//marone
-            {
-                r = 128;
-                g = 0;
-                b = 0;
-                SetcolourFromMenue(r, g, b);
-            }
-            else if (valueofcolour == 11)//olive
-            {
-                r = 128;
-                g = 128;
-                b = 0;
-                SetcolourFromMenue(r, g, b);
-            }
-            else if (valueofcolour == 12)//dark green
-            {
-                r = 0;
-                g = 128;
-                b = 0;
-                SetcolourFromMenue(r, g, b);
-            }
-            else if (valueofcolour == 13)//purple
-            {
-                r = 128;
-                g = 0;
-                b = 128;
-                SetcolourFromMenue(r, g, b);
-            }
-            else if (valueofcolour == 14)//teal
-            {
-                r = 0;
-                g = 128;
-                b = 128;
-                SetcolourFromMenue(r, g, b);
-            }
-            else if (valueofcolour == 15)//navey
-            {
-                r = 0;
-                g = 0;
-                b = 128;
-                SetcolourFromMenue(r, g, b);
-            }
-            #endregion
-
         }
         //method to set colour rgb values
         private void SetcolourFromMenue(int r, int g,int b)
@@ -439,12 +324,12 @@ namespace PixArt
             i2 = g;
             i3 = b;
 
-            //Red_Slider.Value = i1;
-            //Green_Slider.Value = i2;
-            //Blue_Slider.Value = i3;
+            Red_Slider.Value = r;
+            Green_Slider.Value = g;
+            Blue_Slider.Value = b;
 
             SampleColour.BackgroundColor = Color.FromRgb(i1, i2, i3);
-            selectedColour = i1.ToString("X2");
+            selectedColour += i1.ToString("X2");
             selectedColour += i2.ToString("X2");
             selectedColour += i3.ToString("X2");
         }
