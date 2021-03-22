@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixArt.Android", "PixArt\Pi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixArt.iOS", "PixArt\PixArt.iOS\PixArt.iOS.csproj", "{D61BBBD0-94F8-489F-AA19-19AD1BFF3983}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixArt", "PixArt\PixArt\PixArt.csproj", "{D12FB8FA-840A-432F-873E-C7C30EC51BD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixArt", "PixArt\PixArt\PixArt.csproj", "{D12FB8FA-840A-432F-873E-C7C30EC51BD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

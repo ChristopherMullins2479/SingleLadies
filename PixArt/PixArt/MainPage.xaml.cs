@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Newtonsoft.Json;
+using System.Reflection;
 
 namespace PixArt
 {
@@ -14,12 +17,17 @@ namespace PixArt
         int r, g, b;
         double v1, v2, v3;
         int i1, i2, i3;
-        const int ROWS = 16;
-        const int COLS = 16;
+        string selectedColour = "000000";
+        string[,] _coloursStored = new string[ROWS, COLS];
+        List<SaveData> _listOfSavedArt;
+
+        //global constants
+        const int ROWS = 8;
+        const int COLS = 8;
         const int COLOURROW = 2;
         const int COLOURCOL = 8;
-        string selectedColour = "000000", savedPixels;
-        string[,] _coloursStored = new string[ROWS, COLS];
+        const string DEFAULT_FILE = "PixArt.Data.SavedArt.json";
+        const string LOCAL_FILENAME = "SavedArt.json";
 
 
         public MainPage()
@@ -27,6 +35,7 @@ namespace PixArt
             InitializeComponent();
             InitializeBoard();
             CreateNormalColourSelector();
+            ReadLocalDataFile();
         }
 
         private void CreateNormalColourSelector()
@@ -329,7 +338,7 @@ namespace PixArt
             Blue_Slider.Value = b;
 
             SampleColour.BackgroundColor = Color.FromRgb(i1, i2, i3);
-            selectedColour += i1.ToString("X2");
+            selectedColour = i1.ToString("X2");
             selectedColour += i2.ToString("X2");
             selectedColour += i3.ToString("X2");
         }
@@ -430,22 +439,76 @@ namespace PixArt
             _coloursStored[fromR, fromC] = selectedColour;
         }
 
+        // This is the method used to save a piece of art
         private void savePixArt(object sender, EventArgs E)
         {
             int iR, iC;
 
-            savedPixels = "";
+
+            // Right now as no pickers have been implemented yet, the program is configured to selected the object stored at index 0 on list
+            _listOfSavedArt[0].SavedPixelValueArray = "";
+            // As the string for the relevant object has been emptied and rendered as "", a nested loop is then used to fill it up with the array values of the pixels
             for (iR = 0; iR < ROWS; iR++)
             {
                 for (iC = 0; iC < COLS; iC++)
                 {
-                    savedPixels += _coloursStored[iR, iC];
+                    _listOfSavedArt[0].SavedPixelValueArray += _coloursStored[iR, iC];
                 }
             }
-            //DisplayAlert("Output", savedPixels + " String length was: " + savedPixels.Length, "leave");
+            // This method is called to save the objects list to a json file on the device
+            SaveDataFile();
             return;
         }
 
+        // This is the method used to store saved objects from runtime onto the local device
+        private void SaveDataFile()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
+            string fileName = Path.Combine(path, LOCAL_FILENAME);
+
+            using (var writer = new StreamWriter(fileName, false))
+            {
+                string jsonText = JsonConvert.SerializeObject(_listOfSavedArt);
+                writer.Write(jsonText);
+            }
+        }
+
+        // This is the method called when the app initializes to populate the _listOfSavedArt with objects either from the hardcoded json file or the user's local json file
+        private void ReadLocalDataFile()
+        {
+            string jsonText = "";
+
+            // This is the program trying to access locally stored information, which will be available if the program has been saved before on said device
+            try
+            {
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
+                string fileName = Path.Combine(path, LOCAL_FILENAME);
+
+                using (var reader = new StreamReader(fileName))
+                {
+                    jsonText = reader.ReadToEnd();
+                }
+            }
+
+            // If no local stored data could be found, the app will instead load up the file from the hardcoded object list, which as of now only contains a blank black picture
+            catch
+            {
+                var assembly = IntrospectionExtensions.GetTypeInfo(typeof(MainPage)).Assembly;
+
+                Stream streamFileReadIn = assembly.GetManifestResourceStream(DEFAULT_FILE);
+                using (var reader = new StreamReader(streamFileReadIn))
+                {
+                    jsonText = reader.ReadToEnd();
+                }
+                DisplayAlert("Hello", "No stored files found, defaulting to hardcoded files", "Thanks for your understanding");
+            }
+            _listOfSavedArt = JsonConvert.DeserializeObject<List<SaveData>>(jsonText);
+        }
+
+
+        // This is the method used to load a picture from the _listOfSavedArt object list
         private void loadPixArt(object sender, EventArgs E)
         {
             int iR, iC, fromR, fromC, j, stringIncrement, expectedLength;
@@ -455,9 +518,9 @@ namespace PixArt
             expectedLength = ROWS * COLS * 6;
             stringIncrement = 0;
 
-            if (savedPixels.Length == expectedLength)
+            if (_listOfSavedArt[0].SavedPixelValueArray.Length == expectedLength)
             {
-                //DisplayAlert("Success", "String length was " + savedPixels.Length, "leave");
+                DisplayAlert("Success", "String length was " + _listOfSavedArt[0].SavedPixelValueArray.Length, "leave");
                 for (iR = 0; iR < ROWS; iR++)
                 {
                     for (iC = 0; iC < COLS; iC++)
@@ -465,7 +528,7 @@ namespace PixArt
                         currentPixelColour = "";
                         for (j = 0; j < 6; j++)
                         {
-                            currentPixelColour += savedPixels[stringIncrement++];
+                            currentPixelColour += _listOfSavedArt[0].SavedPixelValueArray[stringIncrement++];
                         }
                         _coloursStored[iR, iC] = currentPixelColour;
                     }
@@ -480,7 +543,7 @@ namespace PixArt
             }
             else
             {
-                //DisplayAlert("Oops", "String of sufficient length not found, string length was: " + savedPixels.Length, "leave");
+                DisplayAlert("Oops", "String of sufficient length not found, string length was: " + _listOfSavedArt[0].SavedPixelValueArray.Length, "leave");
             }
         }
     }
