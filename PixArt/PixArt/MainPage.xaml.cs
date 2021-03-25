@@ -20,6 +20,7 @@ namespace PixArt
         string selectedColour = "000000";
         string[,] _coloursStored = new string[ROWS, COLS];
         List<SaveData> _listOfSavedArt;
+        BoxView bv;
 
         //global constants
         const int ROWS = 8;
@@ -350,6 +351,7 @@ namespace PixArt
             double squareSize;
             BoxView bv;
             TapGestureRecognizer PixelTapGR;
+            squareSize = PixelArtBoard.HeightRequest / ROWS;
 
             PixelTapGR = new TapGestureRecognizer();
             PixelTapGR.Tapped += PixelTapGR_Tapped;
@@ -364,9 +366,44 @@ namespace PixArt
                 PixelArtBoard.ColumnDefinitions.Add(new ColumnDefinition());
             }
 
+            //This adds boxviews to the gris that the user will interact with to create their art
+            setUpNewCanvas();
+        }
+
+        // Note: SelectColour Function was obsoleted by Slider_ValueChanged Function
+        private void SelectColour(object sender, EventArgs E)
+        {
+            //selectedColour = "";
+            //selectedColour += pckFirstChar.SelectedIndex.ToString("X1");
+            //selectedColour += pckSecondChar.SelectedIndex.ToString("X1");
+            //selectedColour += pckThirdChar.SelectedIndex.ToString("X1");
+            //selectedColour += pckFourthChar.SelectedIndex.ToString("X1");
+            //selectedColour += pckFifthChar.SelectedIndex.ToString("X1");
+            //selectedColour += pckSixthChar.SelectedIndex.ToString("X1");
+
+            //if (selectedColour.Length >6)
+            //{
+            //    return;
+            //}
+            //SampleColour.BackgroundColor = Color.FromHex(selectedColour);
+        }
+
+        private void Clear_Clicked(object sender, EventArgs e)
+        {
+            setUpNewCanvas();       
+        }
+
+        private void setUpNewCanvas()
+        {
+            int iR, iC;
+            double squareSize;
+            BoxView bv;
+            TapGestureRecognizer PixelTapGR;
             squareSize = PixelArtBoard.HeightRequest / ROWS;
 
-            //This adds boxviews to the gris that the user will interact with to create their art
+            PixelTapGR = new TapGestureRecognizer();
+            PixelTapGR.Tapped += PixelTapGR_Tapped;
+
             for (iR = 0; iR < ROWS; iR++)
             {
                 for (iC = 0; iC < COLS; iC++)
@@ -387,24 +424,6 @@ namespace PixArt
                     PixelArtBoard.Children.Add(bv);
                 }
             }
-        }
-
-        // Note: SelectColour Function was obsoleted by Slider_ValueChanged Function
-        private void SelectColour(object sender, EventArgs E)
-        {
-            //selectedColour = "";
-            //selectedColour += pckFirstChar.SelectedIndex.ToString("X1");
-            //selectedColour += pckSecondChar.SelectedIndex.ToString("X1");
-            //selectedColour += pckThirdChar.SelectedIndex.ToString("X1");
-            //selectedColour += pckFourthChar.SelectedIndex.ToString("X1");
-            //selectedColour += pckFifthChar.SelectedIndex.ToString("X1");
-            //selectedColour += pckSixthChar.SelectedIndex.ToString("X1");
-
-            //if (selectedColour.Length >6)
-            //{
-            //    return;
-            //}
-            //SampleColour.BackgroundColor = Color.FromHex(selectedColour);
         }
 
         //Runs as the user moves the RGB sliders
