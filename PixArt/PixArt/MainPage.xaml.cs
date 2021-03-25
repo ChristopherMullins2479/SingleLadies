@@ -390,7 +390,24 @@ namespace PixArt
 
         private void Clear_Clicked(object sender, EventArgs e)
         {
-            setUpNewCanvas();       
+            int j, iR, iC;
+            BoxView pixelToModify;
+            //setUpNewCanvas();       
+
+
+            for (iR = 0; iR < ROWS; iR++)
+            {
+                for (iC = 0; iC < COLS; iC++)
+                {
+                    _coloursStored[iR, iC] = "FFFFFF";
+                }
+            }
+
+            for (j = PixelArtBoard.Children.Count - 1; j >= 0; j--)
+            {
+                pixelToModify = (BoxView)PixelArtBoard.Children[j];
+                pixelToModify.BackgroundColor = Color.FromHex("FFFFFF");
+            }
         }
 
         private void setUpNewCanvas()
