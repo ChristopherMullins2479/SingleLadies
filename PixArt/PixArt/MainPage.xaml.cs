@@ -443,6 +443,32 @@ namespace PixArt
             }
         }
 
+        private void Fill_Clicked(object sender, EventArgs e)
+        {
+            int j, iR, iC;
+            BoxView pixelToModify;
+            //setUpNewCanvas(); 
+
+            r = i1;
+            g = i2;
+            b = i3;
+
+
+            for (iR = 0; iR < ROWS; iR++)
+            {
+                for (iC = 0; iC < COLS; iC++)
+                {
+                    _coloursStored[iR, iC] = "FFFFFF";
+                }
+            }
+
+            for (j = PixelArtBoard.Children.Count - 1; j >= 0; j--)
+            {
+                pixelToModify = (BoxView)PixelArtBoard.Children[j];
+                pixelToModify.BackgroundColor = Color.FromRgb(r,g,b);
+            }
+        }
+
         //Runs as the user moves the RGB sliders
         private void Slider_ValueChanged(object sender, ValueChangedEventArgs e)
         {

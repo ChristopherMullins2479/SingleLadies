@@ -57,6 +57,7 @@
 
         <!--This will hold the grid for the normal colour selector-->
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+            <Button WidthRequest="75" HorizontalOptions="Start" Text="Fill" x:Name="Fill" Clicked="Fill_Clicked" ></Button>
             <Grid x:Name="ColourSelector"
                   BackgroundColor="Black"
                   HorizontalOptions="Center"
@@ -68,7 +69,7 @@
                   Padding="5"
                   >
             </Grid>
-            <Button HorizontalOptions="End" Text="Clear" x:Name="Clear" Clicked="Clear_Clicked"></Button>
+            <Button WidthRequest="75" HorizontalOptions="End" Text="Clear" x:Name="Clear" Clicked="Clear_Clicked"></Button>
         </StackLayout>
     </StackLayout>
     
